@@ -5,13 +5,14 @@ import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
+import '../styles/CategoryPage.css'
 
 const categorySchema = yup.object().shape({
     name: yup.string().required('Name is required'),
     tax_value: yup.number().required('Tax value is required'),
   });
 
-const CategoryList = () => {
+const CategoryList = ({ refreshCategories }) => {
   const [categories, setCategories] = useState<Category[]>([]);
 
   useEffect(() => {
@@ -30,26 +31,26 @@ const CategoryList = () => {
 
   return (
     <div>
-      <h2>Categories</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Tax Value</th>
+    <h2 className="title">Categories</h2>
+    <table className="table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Tax Value</th>
+        </tr>
+      </thead>
+      <tbody>
+        {categories.map((category) => (
+          <tr key={category.id}>
+            <td>{category.id}</td>
+            <td>{category.name}</td>
+            <td>{category.tax_value}</td>
           </tr>
-        </thead>
-        <tbody>
-          {categories.map((category) => (
-            <tr key={category.id}>
-              <td>{category.id}</td>
-              <td>{category.name}</td>
-              <td>{category.tax_value}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+        ))}
+      </tbody>
+    </table>
+  </div>
   );
 };
 
@@ -77,21 +78,21 @@ const CreateCategoryForm = () => {
   };
 
   return (
-    <div>
-      <h2>Create Category</h2>
+    <div className="form">
+      <h2 className="title">Create Category</h2>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="form-group">
-          <label>Name:</label>
-          <input type="text" {...register('name')} />
-          {errors.name && <span>{errors.name.message}</span>}
+          <label className="label">Name:</label>
+          <input type="text" className="input" {...register('name')} />
+          {errors.name && <span className="error-message">{errors.name.message}</span>}
         </div>
         <div className="form-group">
-          <label>Tax Value:</label>
-          <input type="number" step="0.01" {...register('tax_value')} />
-          {errors.tax_value && <span>{errors.tax_value.message}</span>}
+          <label className="label">Tax Value:</label>
+          <input type="number" step="0.01" className="input" {...register('tax_value')} />
+          {errors.tax_value && <span className="error-message">{errors.tax_value.message}</span>}
         </div>
         <div className="form-group">
-          <button type="submit">Create Category</button>
+          <button type="submit" className="button">Create Category</button>
         </div>
       </form>
     </div>
@@ -105,10 +106,10 @@ const CategoryPage = () => {
       navigate('/welcome');
     };
   return (
-    <div>
+    <div className="category-page">
       <CategoryList />
       <CreateCategoryForm />
-      <button onClick={goToWelcome}>Go to Welcome Page</button>
+      <button className="go-to-welcome" onClick={goToWelcome}>Go to Welcome Page</button>
     </div>
   );
 };

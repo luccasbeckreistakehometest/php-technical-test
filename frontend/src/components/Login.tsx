@@ -5,7 +5,7 @@ import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useAuth } from '../context/AuthContext';
 import { FormValues } from '../types';
-// import '../styles/Login.css';
+import '../styles/Login.css'
 
 const schema = yup.object().shape({
   name: yup.string().required('Username is required'),

@@ -4,6 +4,7 @@ import axios from 'axios';
 // import { SaleItem } from '../types';
 import { useNavigate } from 'react-router-dom';
 import React from 'react';
+import '../styles/SalesPage.css'
 
 interface SaleItem {
   productId: string;
@@ -112,36 +113,54 @@ const ItemRow = ({ index, setSubtotals, calculateTotalValue, onItemChange }: Ite
   };
 
   return (
+    <table className="table">
     <tr>
       <td>
-        <label>ID</label>
-        <input value={productId} onChange={(e) => setProductId(e.target.value)}/>
+        <label className="label">ID</label>
       </td>
       <td>
-        <label>NAME</label>
+        <label className="label">NAME</label>
+      </td>
+      <td>
+        <label className="label">PRICE</label>
+      </td>
+      <td>
+        <label className="label">CATEGORY</label>
+      </td>
+      <td>
+        <label className="label">TAX VALUE</label>
+      </td>
+      <td>
+        <label className="label">QUANTITY</label>
+      </td>
+      <td>
+        <label className="label">SUBTOTAL</label>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input className="input" value={productId} onChange={(e) => setProductId(e.target.value)} />
+      </td>
+      <td>
         <p>{saleItem?.name}</p>
       </td>
       <td>
-        <label>PRICE</label>
         <p>{saleItem?.value}</p>
       </td>
       <td>
-        <label>CATEGORY</label>
         <p>{saleItem?.categoryName}</p>
       </td>
       <td>
-        <label>TAX VALUE</label>
         <p>{saleItem?.taxValue}</p>
       </td>
       <td>
-        <label>QUANTITY</label>
-        <input value={productQty} onChange={handleQuantityChange} />
+        <input className="input" value={productQty} onChange={handleQuantityChange} />
       </td>
       <td>
-        <label>SUBTOTAL</label>
         <p>{subtotal}</p>
       </td>
     </tr>
+  </table>
   )
 }
 const PreviousSalesTable = () => {
@@ -165,7 +184,7 @@ const PreviousSalesTable = () => {
     .map((saleId) => sales.find((sale) => sale.sale_id === saleId));
 
   return (
-    <table>
+    <table className="table">
       <thead>
         <tr>
           <th>Sale ID</th>
@@ -240,7 +259,9 @@ const SalesPage = () => {
   };
 
   return (
-    <>
+    <div className="sales-page">
+     
+      <PreviousSalesTable />
       {[...Array(itemsCount)].map((_, index) => (
         <ItemRow
           index={index}
@@ -250,12 +271,11 @@ const SalesPage = () => {
           onItemChange={handleItemChange}
         />
       ))}
-      <PreviousSalesTable />
-      <button onClick={addItem}>Add Item</button>
-      <div>Total Value: {totalValue}</div>
-      <button onClick={handleSaveSale}>Save Sale</button>
-      <button onClick={goToWelcome}>Go to Welcome Page</button>
-    </>
+      <button className="button" onClick={addItem}>Add Item</button>
+      <div className="total-value">Total Value: {totalValue}</div>
+      <button className="button" onClick={handleSaveSale}>Save Sale</button>
+      <button className="go-to-welcome" onClick={goToWelcome}>Go to Welcome Page</button>
+    </div>
   );
 }
 

@@ -5,6 +5,7 @@ import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
+import '../styles/ProductPage.css'
 
 const productSchema = yup.object().shape({
   name: yup.string().required('Name is required'),
@@ -46,8 +47,8 @@ const ProductList = () => {
 
   return (
     <div>
-      <h2>Products</h2>
-      <table>
+      <h2 className="title">Products</h2>
+      <table className="table">
         <thead>
           <tr>
             <th>ID</th>
@@ -115,35 +116,35 @@ const CreateProductForm = () => {
   };
 
   return (
-    <div>
-      <h2>Create Product</h2>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="form-group">
-          <label>Name:</label>
-          <input type="text" {...register('name')} />
-          {errors.name && <span>{errors.name.message}</span>}
-        </div>
-        <div className="form-group">
-          <label>Value:</label>
-          <input type="number" step="0.01" {...register('value')} />
-          {errors.value && <span>{errors.value.message}</span>}
-        </div>
-        <div className="form-group">
-          <label>Category:</label>
-          <select {...register('category_id')}>
-            {categories.map((category) => (
-              <option key={category.id} value={category.id}>
-                {category.name}
-              </option>
-            ))}
-          </select>
-          {errors.category_id && <span>{errors.category_id.message}</span>}
-        </div>
-        <div className="form-group">
-          <button type="submit">Create Product</button>
-        </div>
-      </form>
-    </div>
+    <div className="form">
+    <h2 className="title">Create Product</h2>
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <div className="form-group">
+        <label className="label">Name:</label>
+        <input type="text" className="input" {...register('name')} />
+        {errors.name && <span className="error-message">{errors.name.message}</span>}
+      </div>
+      <div className="form-group">
+        <label className="label">Value:</label>
+        <input type="number" step="0.01" className="input" {...register('value')} />
+        {errors.value && <span className="error-message">{errors.value.message}</span>}
+      </div>
+      <div className="form-group">
+        <label className="label">Category:</label>
+        <select className="input" {...register('category_id')}>
+          {categories.map((category) => (
+            <option key={category.id} value={category.id}>
+              {category.name}
+            </option>
+          ))}
+        </select>
+        {errors.category_id && <span className="error-message">{errors.category_id.message}</span>}
+      </div>
+      <div className="form-group">
+        <button type="submit" className="button">Create Product</button>
+      </div>
+    </form>
+  </div>
   );
 };
 
@@ -154,11 +155,11 @@ const ProductPage = () => {
       navigate('/welcome');
     };
   return (
-    <div>
-      <ProductList />
-      <CreateProductForm />
-      <button onClick={goToWelcome}>Go to Welcome Page</button>
-    </div>
+    <div className="product-page">
+    <ProductList />
+    <CreateProductForm />
+    <button className="go-to-welcome" onClick={goToWelcome}>Go to Welcome Page</button>
+  </div>
   );
 };
 
