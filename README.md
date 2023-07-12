@@ -15,7 +15,7 @@ To get started with the Sales Management Application, you can use Docker to set 
 
 1. Clone the repository:
 
-git clone https://github.com/luccasbeckreistakehometest/sales-management-app.git
+git clone https://github.com/luccasbeckreistakehometest/php-technical-test.git
 
 2. Navigate to the project directory:
 
